@@ -1,0 +1,56 @@
+---
+- hosts: web-server
+  remote_user: root
+  name: Configure web server
+  tasks:
+    - name: Manage some packages
+      include_tasks: tasks/packages.yml
+      vars:
+        extra_packages:
+          - git
+          - wget
+          - curl
+          - snap
+          - nginx
+
+    - name: Install Docker
+      include_role:
+        name: geerlingguy.docker
+
+    - name: Install certbot
+      community.general.snap:
+        name: certbot
+        classic: yes
+        state: present
+
+    - name: configure users
+      include_tasks: tasks/users.yml
+      vars:
+        extra_user: "{{ lookup('env', 'USER') }}"
+
+- hosts: web-apps
+  remote_user: root
+  name: Setup
+  serial: 1
+  vars_prompt:
+    - name: email_address
+      prompt: Email address for certbot?
+  vars:
+    cert_type: "staging"
+  tasks:
+    - block:
+        - name: Start Container
+          shell: "docker start {{ container_name }}"
+      rescue:
+        - name: Create Container
+          command:
+            cmd: "docker run --name {{ container_name }} -p {{ publish_ports }} -d {{ image }}"
+
+    - name: configure nginx and certbot
+      import_role:
+        name: nginx
+      tags:
+        - certbot
+        - nginx
+      ignore_errors: "{{ ansible_check_mode }}"
+
