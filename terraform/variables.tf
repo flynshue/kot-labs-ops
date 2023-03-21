@@ -15,8 +15,9 @@ variable "do_region" {
 variable app_domains {
   type = list(string)
   default = [
-    "test-plate-stack",
-    "test-cod",
+    "plate-stack",
+    "cod",
+    "snappass",
     "kot-labs-web"
   ]
 }

@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+
+    snappass:
+        build:
+          context: https://github.com/pinterest/snappass.git
+        image: pinterest/snappass
+        ports:
+            - "{{ host_port }}:{{ container_port }}"
+        stop_signal: SIGINT
+        environment:
+            - REDIS_HOST=redis
+            - SECRET_KEY="{{ snappass_secret_key }}"
+            - HOST_OVERRIDE="{{ inventory_hostname }}"
+        depends_on:
+          - redis
+
+    redis:
+        image: "redis:latest"

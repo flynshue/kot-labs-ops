@@ -16,11 +16,20 @@ terraform plan -var do_token=$(lpass show --password blah)
 
 # Running ansible-playbook for initial setup of the server
 ```
-python 3 -m venv venv
+python3 -m venv venv
 
 venv/bin/pip install -r requirements.txt
 
 venv/bin/ansible-galaxy install -fr ansible-galaxy.yml
 
+# staging certs
 venv/bin/ansible-playbook -i hosts.yml --private-key ~/.ssh/id_rsa setup.yml -e email_address=flynshue@gmail.com
+
+# prod certs
+venv/bin/ansible-playbook -i hosts.yml --private-key ~/.ssh/id_rsa setup.yml -e email_address=flynshue@gmail.com -e cert_type=prod
+```
+
+# Deleting staging cert
+```
+certbot delete --cert-name test-plate-stack.kot-labs.com
 ```

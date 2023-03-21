@@ -30,7 +30,7 @@
 
 - hosts: web-apps
   remote_user: root
-  name: Setup
+  name: Setup web apps running docker
   serial: 1
   vars_prompt:
     - name: email_address
@@ -45,6 +45,14 @@
         - name: Create Container
           command:
             cmd: "docker run --name {{ container_name }} -p {{ publish_ports }} -d {{ image }}"
+      when: not docker_compose
+
+    - name: Configure snappass
+      import_role:
+        name: snappass
+      when: docker_compose
+      tags:
+        - snappass
 
     - name: configure nginx and certbot
       import_role:
