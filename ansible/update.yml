@@ -1,0 +1,12 @@
+- hosts: web-apps
+  remote_user: root
+  name: Update docker containers
+  tasks:
+    - name: Stop container
+      command: "docker stop {{ container_name }}"
+
+    - name: Remove container
+      command: "docker rm {{ container_name }}"
+
+    - name: Create Container
+      command: "docker run --name {{ container_name }} -p {{ publish_ports }} -d {{ image }}"
