@@ -1,4 +1,4 @@
-- hosts: web-apps
+- hosts: plate-stack.kot-labs.com:cod.kot-labs.com
   remote_user: root
   name: Update docker containers
   tasks:
