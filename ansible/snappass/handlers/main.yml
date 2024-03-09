@@ -1,2 +1,9 @@
 ---
 # handlers file for snappass
+- name: stop docker compose
+  command: "docker compose -f {{ docker_compose_file }} down"
+  listen: "restart snappass"
+
+- name: Create and start snappass containers
+  command: "docker compose -f {{ docker_compose_file }} up -d"
+  listen: "restart snappass"

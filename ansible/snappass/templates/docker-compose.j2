@@ -12,7 +12,7 @@ services:
         environment:
             - REDIS_HOST=redis
             - SECRET_KEY="{{ snappass_secret_key }}"
-            - HOST_OVERRIDE="{{ inventory_hostname }}"
+            - HOST_OVERRIDE={{ inventory_hostname }}
         depends_on:
           - redis
 

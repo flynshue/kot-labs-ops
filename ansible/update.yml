@@ -1,5 +1,6 @@
 - hosts: plate-stack.kot-labs.com:cod.kot-labs.com
-  remote_user: root
+  remote_user: "{{ lookup('env', 'USER') }}"
+  become: yes
   name: Update docker containers
   tasks:
     - name: Stop container
@@ -10,3 +11,11 @@
 
     - name: Create Container
       command: "docker run --name {{ container_name }} -p {{ publish_ports }} -d {{ image }}"
+
+- hosts: snappass.kot-labs.com
+  remote_user: "{{ lookup('env', 'USER') }}"
+  become: yes
+  name: Update snappass
+  roles:
+    - role: snappass
+      tags: snappass

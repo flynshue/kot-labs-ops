@@ -4,6 +4,4 @@
   template:
     src: docker-compose.j2
     dest: "{{ docker_compose_file }}"
-
-- name: Create and start snappass containers
-  command: "docker compose -f {{ docker_compose_file }} up -d"
+  notify: "restart snappass"

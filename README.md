@@ -38,6 +38,15 @@ venv/bin/pip install -r requirements.txt
 venv/bin/ansible-playbook -i hosts.yml update.yml
 ```
 
+# Running ansible-playbook to update snappass
+```bash
+python3 -m venv venv
+
+venv/bin/pip install -r requirements.txt
+
+venv/bin/ansible-playbook -i hosts.yml update.yml -t snappass
+```
+
 # Deleting staging cert
 ```
 certbot delete --cert-name test-plate-stack.kot-labs.com
