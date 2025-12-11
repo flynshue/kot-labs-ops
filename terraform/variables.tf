@@ -1,6 +1,6 @@
 # Set the variable value in *.tfvars file
 # or using -var="do_token=..." CLI option
-variable "do_token" {}
+# variable "do_token" {}
 
 variable "do_domain" {
   type = string
@@ -25,4 +25,9 @@ variable app_domains {
 variable "droplet_image" {
   type = string
   default = "ubuntu-24-04-x64"
+}
+
+variable "droplet_name_prefix" {
+  type = string
+  default = "kot-labs-web"
 }

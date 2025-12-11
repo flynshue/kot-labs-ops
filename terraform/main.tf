@@ -27,7 +27,7 @@ data "digitalocean_ssh_keys" "keys" {
 
 resource "digitalocean_droplet" "web-server" {
   image = var.droplet_image
-  name = "kot-labs-web-${var.do_region}-01"
+  name = "${var.droplet_name_prefix}-${var.do_region}-01"
   region = var.do_region
   size = "s-1vcpu-1gb"
   tags = ["web-server"]
