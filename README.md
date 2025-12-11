@@ -50,7 +50,9 @@ vim ~/.ssh/authorized_keys
 ```
 
 # Running ansible-playbook for initial setup of the server
+## Dev env
 ```
+cd ansible/
 python3 -m venv venv
 
 venv/bin/pip install -r requirements.txt
@@ -58,13 +60,25 @@ venv/bin/pip install -r requirements.txt
 venv/bin/ansible-galaxy install -fr ansible-galaxy.yml
 
 # staging certs
-venv/bin/ansible-playbook -i hosts.yml \
+venv/bin/ansible-playbook -i dev-hosts.yml \
 -e email_address=flynshue@gmail.com \
 setup.yml
 
+
+## Prod env
+```
+cd ansible/
+python3 -m venv venv
+
+venv/bin/pip install -r requirements.txt
+
+venv/bin/ansible-galaxy install -fr ansible-galaxy.yml
+
 # prod certs
-venv/bin/ansible-playbook -i hosts.yml
--e email_address=flynshue@gmail.com -e cert_type=prod
+venv/bin/ansible-playbook -i hosts.yml \
+-e email_address=flynshue@gmail.com \
+-e cert_type=prod \
+setup.yml
 ```
 
 # Running ansible-playbook to update cod-maps or plate-stack
