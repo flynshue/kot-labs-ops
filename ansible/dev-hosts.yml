@@ -1,0 +1,27 @@
+web-server:
+  hosts:
+    dev-kot-labs-web.kot-labs.com:
+      host_port: 1001
+web-apps:
+  vars:
+    base_image_url: "public.ecr.aws/flynshue"
+    image: "{{ base_image_url }}/{{ image_name }}:{{ image_version }}"
+    publish_ports: "{{ host_port }}:{{ container_port }}"
+    docker_compose: false
+  hosts:
+    dev-plate-stack.kot-labs.com:
+      host_port: 3001
+      container_name: test-plate-stack
+      container_port: 3000
+      image_name: plate-stack
+      image_version: v1.0.2
+    dev-cod.kot-labs.com:
+      host_port: 5000
+      container_name: test-cod-maps
+      container_port: 5000
+      image_name: cod-maps
+      image_version: v0.0.1
+    dev-snappass.kot-labs.com:
+      docker_compose: true
+      host_port: 5001
+      container_port: 5000
