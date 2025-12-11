@@ -26,7 +26,7 @@ data "digitalocean_ssh_keys" "keys" {
 }
 
 resource "digitalocean_droplet" "web-server" {
-  image = "ubuntu-22-10-x64"
+  image = var.droplet_image
   name = "kot-labs-web-${var.do_region}-01"
   region = var.do_region
   size = "s-1vcpu-1gb"

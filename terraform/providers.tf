@@ -6,12 +6,19 @@ terraform {
     }
   }
 
-  backend "remote" {
-    hostname     = "app.terraform.io"
-    organization = "kot-labs"
+  # backend "remote" {
+  #   hostname     = "app.terraform.io"
+  #   organization = "kot-labs"
 
+  #   workspaces {
+  #     prefix = "plate-stack-"
+  #   }
+  # }
+  cloud {
+    hostname = "app.terraform.io"
+    organization = "kot-labs"
     workspaces {
-      name = "plate-stack"
+      tags = [ "plate-stack-prod", "plate-stack-dev" ]
     }
   }
 

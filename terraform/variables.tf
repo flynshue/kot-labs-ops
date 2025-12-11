@@ -21,3 +21,8 @@ variable app_domains {
     "kot-labs-web"
   ]
 }
+
+variable "droplet_image" {
+  type = string
+  default = "ubuntu-24-04-x64"
+}
