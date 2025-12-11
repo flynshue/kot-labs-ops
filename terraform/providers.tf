@@ -5,19 +5,14 @@ terraform {
       version = "~> 2.0"
     }
   }
-
-  backend "remote" {
-    hostname     = "app.terraform.io"
+  cloud {
+    hostname = "app.terraform.io"
     organization = "kot-labs"
-
     workspaces {
-      name = "plate-stack"
+      tags = [ "plate-stack-prod", "plate-stack-dev" ]
     }
   }
 
 }
 
 # Configure the DigitalOcean Provider
-provider "digitalocean" {
-  token = var.do_token
-}
